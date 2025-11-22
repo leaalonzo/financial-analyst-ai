@@ -423,7 +423,7 @@ def main():
                 retriever = st.session_state.vector_store.vectorstore.as_retriever(
                     search_kwargs={"k": 10}
                 )
-                docs = retriever.get_relevant_documents(test_query)
+                docs = retriever.invoke(test_query)
                 
                 companies_found = {}
                 for doc in docs:
@@ -440,8 +440,8 @@ def main():
                     st.write(f"\nSearching for: `{company} {metric}`")
                     
                     company_query = f"{company} {metric}"
-                    docs = retriever.get_relevant_documents(company_query)
-                    
+                    docs = retriever.invoke(company_query)
+
                     # Filter to this company
                     company_docs = [d for d in docs if d.metadata.get('company', '').lower() == company.lower()]
                     all_docs.extend(company_docs[:5])
