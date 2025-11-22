@@ -1,4 +1,4 @@
-# src/llm_chain.py - FIXED FOR TESLA-NVIDIA COMPARISON
+# src/llm_chain.py - FIXED FOR STREAMLIT CLOUD
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from typing import Dict, List
@@ -74,7 +74,7 @@ DETAILED ANALYSIS:"""
         try:
             all_docs = []
             
-            # ← CRITICAL FIX: Force balanced retrieval for comparisons
+            # Force balanced retrieval for comparisons
             if force_companies and len(force_companies) >= 2:
                 seen_content = set()
                 
@@ -86,7 +86,8 @@ DETAILED ANALYSIS:"""
                     retriever = self.vector_store.vectorstore.as_retriever(
                         search_kwargs={"k": 10}
                     )
-                    docs = retriever.get_relevant_documents(company_query)
+                    # ← FIXED: Use invoke() instead of get_relevant_documents()
+                    docs = retriever.invoke(company_query)
                     
                     # Filter to only this company's docs
                     company_docs = [
@@ -110,7 +111,8 @@ DETAILED ANALYSIS:"""
                     retriever = self.vector_store.vectorstore.as_retriever(
                         search_kwargs={"k": 5}
                     )
-                    docs = retriever.get_relevant_documents(search_query)
+                    # ← FIXED: Use invoke() instead of get_relevant_documents()
+                    docs = retriever.invoke(search_query)
                     
                     for doc in docs:
                         content_hash = hash(doc.page_content[:200])

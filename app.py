@@ -385,7 +385,7 @@ def main():
                     retriever = st.session_state.vector_store.vectorstore.as_retriever(
                         search_kwargs={"k": 5}
                     )
-                    docs = retriever.get_relevant_documents(test_query)
+                    docs = retriever.invoke(query)
                     
                     st.write(f"**Retrieved {len(docs)} documents:**")
                     for i, doc in enumerate(docs):
