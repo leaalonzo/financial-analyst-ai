@@ -402,7 +402,6 @@ def main():
         st.markdown("---")
 
         # Comparative analysis
-        st.markdown("---")
         with st.expander("🔬 Comparative Analysis"):
             col1, col2, col3 = st.columns(3)
             with col1:
