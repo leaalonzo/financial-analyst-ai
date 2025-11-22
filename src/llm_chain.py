@@ -1,6 +1,6 @@
 # src/llm_chain.py - FIXED FOR TESLA-NVIDIA COMPARISON
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from typing import Dict, List
 import os
 
